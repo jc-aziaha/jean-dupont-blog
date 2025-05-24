@@ -5,6 +5,7 @@ namespace App\Controller\Admin\Post;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\AdminPostFormType;
+use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +19,7 @@ final class PostController extends AbstractController
     public function __construct(
         private EntityManagerInterface $entityManager,
         private PostRepository $postRepository,
+        private CategoryRepository $categoryRepository,
     ) {
     }
 
@@ -34,6 +36,12 @@ final class PostController extends AbstractController
     #[Route('/post/create', name: 'app_admin_post_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
+        if (0 == count($this->categoryRepository->findAll())) {
+            $this->addFlash('warning', 'Pour créer un nouvel article, vous devez créer au moins une catégorie.');
+
+            return $this->redirectToRoute('app_admin_category_index');
+        }
+
         $post = new Post();
 
         $form = $this->createForm(AdminPostFormType::class, $post);
@@ -53,7 +61,7 @@ final class PostController extends AbstractController
             $this->entityManager->persist($post);
             $this->entityManager->flush();
 
-            $this->addFlash('success', "L'article a été modifié");
+            $this->addFlash('success', "L'article a été créé et sauvegardé.");
 
             return $this->redirectToRoute('app_admin_post_index');
         }
@@ -90,7 +98,7 @@ final class PostController extends AbstractController
             $this->entityManager->persist($post);
             $this->entityManager->flush();
 
-            $this->addFlash('success', "L'article a été modifié");
+            $this->addFlash('success', "L'article a été modifié et sauvegardé.");
 
             return $this->redirectToRoute('app_admin_post_index');
         }
