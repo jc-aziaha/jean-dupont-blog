@@ -27,11 +27,12 @@ final class PostController extends AbstractController
     public function index(): Response
     {
         $posts = $this->postRepository->findAll();
-
+        
         return $this->render('pages/admin/post/index.html.twig', [
             'posts' => $posts,
         ]);
     }
+    
 
     #[Route('/post/create', name: 'app_admin_post_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
