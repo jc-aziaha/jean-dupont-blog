@@ -54,8 +54,10 @@
                 {{form_end(form)}}
             </div>
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
-                <p><i class="fa-solid fa-envelope"></i>: medecine-du-monde@gmail.com</p>
-                <p><i class="fa-solid fa-phone"></i>: 06 05 05 05 05</p>
+                <p><i class="fa-solid fa-envelope"></i>: {{setting.email}}</p>
+                {% if setting.phone is not empty %}
+                    <p><i class="fa-solid fa-phone"></i>: {{setting.phone}}</p>
+                {% endif %}
                 <div>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.742807082134!2d2.3334945!3d48.863114599999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2f64250cfd%3A0xf76e6e752d80a38b!2sMus%C3%A9e%20des%20Arts%20d%C3%A9coratifs!5e0!3m2!1sfr!2sfr!4v1748199652192!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
