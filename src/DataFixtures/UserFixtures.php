@@ -3,8 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
@@ -13,7 +13,7 @@ class UserFixtures extends Fixture
         private UserPasswordHasherInterface $hasher,
     ) {
     }
-    
+
     public function load(ObjectManager $manager): void
     {
         $user1 = $this->createUser1();
@@ -23,12 +23,12 @@ class UserFixtures extends Fixture
         $manager->persist($user1);
         $manager->persist($user2);
         $manager->persist($user3);
-        
+
         $manager->flush();
     }
 
     /**
-     * Cette méthode permet de créer l'utilisateur 1
+     * Cette méthode permet de créer l'utilisateur 1.
      */
     private function createUser1(): User
     {
@@ -49,9 +49,8 @@ class UserFixtures extends Fixture
         return $user;
     }
 
-
     /**
-     * Cette méthode permet de créer l'utilisateur 2
+     * Cette méthode permet de créer l'utilisateur 2.
      */
     private function createUser2(): User
     {
@@ -73,7 +72,7 @@ class UserFixtures extends Fixture
     }
 
     /**
-     * Cette méthode permet de créer l'utilisateur 3
+     * Cette méthode permet de créer l'utilisateur 3.
      */
     private function createUser3(): User
     {
