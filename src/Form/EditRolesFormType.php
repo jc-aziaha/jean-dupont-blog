@@ -15,7 +15,7 @@ class EditRolesFormType extends AbstractType
     {
         $builder
             ->add('roles', ChoiceType::class, [
-                'choices'  => [
+                'choices' => [
                     'Rôle utilisateur' => 'ROLE_USER',
                     'Rôle administrateur' => 'ROLE_ADMIN',
                 ],
@@ -23,9 +23,9 @@ class EditRolesFormType extends AbstractType
                 'multiple' => true,
                 'constraints' => [
                     new NotBlank([
-                        "message" => "Veuillez renseigner au moins un rôle."
-                    ])
-                ]
+                        'message' => 'Veuillez renseigner au moins un rôle.',
+                    ]),
+                ],
             ])
         ;
     }
