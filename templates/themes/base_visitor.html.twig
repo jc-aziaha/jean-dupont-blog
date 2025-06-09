@@ -33,6 +33,9 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
+        {# rel links for pagination #}
+        {{ knp_pagination_rel_links(posts) }}
     </head>
     <body class="body-visitor">
         {# Navbar #}
