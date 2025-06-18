@@ -34,6 +34,10 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
 
+        {% block j_query %}{% endblock %}
+
+        {% block specific_js %}{% endblock %}
+
         {% block knp_paginator_rel_links %}{% endblock %}
     </head>
     <body class="body-visitor">
