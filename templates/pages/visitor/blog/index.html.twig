@@ -4,6 +4,11 @@
 
 {% block description %}Lisez des articles pertinents sur la santé et le bien être{% endblock %}
 
+{% block knp_paginator_rel_links %}
+    {# rel links for pagination #}
+    {{ knp_pagination_rel_links(posts) }}
+{% endblock %}
+
 {% block main %}
     {% include 'components/visitor/header-visitor.html.twig' with {'h1': 'Liste des articles'} %}
 
@@ -60,8 +65,8 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h2 class="card-title">{{post.title}}</h2>
-                                    <p class="card-text">{{post.description}}</p>
+                                    <h2 class="card-title">{{post.title|u.truncate('60', '...')}}</h2>
+                                    <p class="card-text">{{post.description|u.truncate('80', '...')}}</p>
                                     <p><strong>Catégorie: </strong>{{post.category.name}}</p>
                                     {% if post.tags is not empty %}
                                     <p>
@@ -74,7 +79,7 @@
                                     
                                     <p class="card-text"><small class="text-body-secondary">Publié {{post.publishedAt|ago}}</small></p>
                                     <p>
-                                        <a href="" class="btn btn-lg btn-primary shadow">Lire l'article</a>
+                                        <a href="{{path('app_visitor_blog_post_show', {'id':post.id, 'slug':post.slug})}}" class="btn btn-lg btn-primary shadow">Lire l'article</a>
                                     </p>
                                 </div>
                             </div>
