@@ -7,8 +7,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
-
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
 {
@@ -23,7 +21,6 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?User $user = null;
-
 
     #[Assert\NotBlank(message: 'Le commentaire est obligatoire.')]
     #[Assert\Length(

@@ -73,7 +73,7 @@
                             <div class="shadow p-2">
                                 <p><strong>{{comment.user.firstName}} {{comment.user.lastName}}</strong> <small class="">{{comment.activatedAt ? '(Envoyé ' ~ comment.activatedAt|ago ~ ')' : ''}}</small></p>
                                 
-                                <p>{{comment.content}}</p>
+                                <p>{{comment.content|nl2br}}</p>
                             </div>
                         {% endif %}
                         <hr class="my-3">   

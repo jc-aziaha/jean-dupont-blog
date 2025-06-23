@@ -2,24 +2,23 @@
 
 namespace App\Controller\Visitor\Blog;
 
-use App\Entity\Tag;
+use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\Like;
 use App\Entity\Post;
+use App\Entity\Tag;
 use App\Entity\User;
-use App\Entity\Comment;
-use App\Entity\Category;
 use App\Form\CommentFormType;
-use App\Repository\TagRepository;
+use App\Repository\CategoryRepository;
 use App\Repository\LikeRepository;
 use App\Repository\PostRepository;
-use App\Repository\CategoryRepository;
-use DateTimeImmutable;
+use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class BlogController extends AbstractController
 {
@@ -80,16 +79,13 @@ final class BlogController extends AbstractController
     #[Route('/blog/article/{id<\d+>}/{slug}', name: 'app_visitor_blog_post_show', methods: ['GET', 'POST'])]
     public function showPost(Post $post, Request $request): Response
     {
-
         $comment = new Comment();
 
         $form = $this->createForm(CommentFormType::class, $comment);
 
         $form->handleRequest($request);
 
-        if ( $form->isSubmitted() && $form->isValid() ) 
-        {
-
+        if ($form->isSubmitted() && $form->isValid()) {
             /**
              * @var User
              */
@@ -97,21 +93,21 @@ final class BlogController extends AbstractController
 
             $comment->setPost($post);
             $comment->setUser($user);
-            $comment->setCreatedAt(new DateTimeImmutable());
-            $comment->setActivatedAt(new DateTimeImmutable());
+            $comment->setCreatedAt(new \DateTimeImmutable());
+            $comment->setActivatedAt(new \DateTimeImmutable());
 
             $this->entityManager->persist($comment);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute("app_visitor_blog_post_show", [
-                "id"    => $post->getId(),
-                "slug"  => $post->getSlug(),
+            return $this->redirectToRoute('app_visitor_blog_post_show', [
+                'id' => $post->getId(),
+                'slug' => $post->getSlug(),
             ]);
         }
 
         return $this->render('pages/visitor/blog/show.html.twig', [
             'post' => $post,
-            "form" => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -119,7 +115,8 @@ final class BlogController extends AbstractController
     public function likePost(Post $post): Response
     {
         /**
-         * Vérifions s'il y a un utilisateur connecté
+         * Vérifions s'il y a un utilisateur connecté.
+         *
          * @var User
          */
         $user = $this->getUser();

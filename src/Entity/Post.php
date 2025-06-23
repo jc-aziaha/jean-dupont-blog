@@ -337,9 +337,6 @@ class Post
 
     /**
      * Cette méthode permet de savoir si l'article a été liké ou non par l'utilisateur connecté.
-     *
-     * @param User $user
-     * @return boolean
      */
     public function isLikedBy(User $user): bool
     {
