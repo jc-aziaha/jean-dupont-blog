@@ -72,9 +72,12 @@
                     {% for comment in post.comments|reverse %}
                         {% if comment.isActivated %}
                             <div class="shadow p-2">
-                                <p><strong>{{comment.user.firstName}} {{comment.user.lastName}}</strong> <small class="">{{comment.activatedAt ? '(Envoyé ' ~ comment.activatedAt|ago ~ ')' : ''}}</small></p>
-                                
-                                <p>{{comment.content|nl2br}}</p>
+                                {% if comment.user %}
+                                    <p><strong>{{comment.user.firstName}} {{comment.user.lastName}}</strong> <small class="">{{comment.activatedAt ? '(Envoyé ' ~ comment.activatedAt|ago ~ ')' : ''}}</small></p>
+                                {% else %}
+                                    <p><strong>Utilisateur inconnu</strong> <small class="">{{comment.activatedAt ? '(Envoyé ' ~ comment.activatedAt|ago ~ ')' : ''}}</small></p>
+                                {% endif %}
+                                    <p>{{comment.content|nl2br}}</p>
                             </div>
                         {% endif %}
                         <hr class="my-3">   
