@@ -58,10 +58,17 @@ final class UserController extends AbstractController
             $userFullName = "{$user->getFirstName()} {$user->getLastName()}";
 
             $userPosts = $user->getPosts();
+            $userComments = $user->getComments();
 
             if (count($userPosts) > 0) {
                 foreach ($userPosts as $post) {
                     $post->setUser(null);
+                }
+            }
+
+            if (count($userComments) > 0) {
+                foreach ($userComments as $comment) {
+                    $comment->setUser(null);
                 }
             }
 
